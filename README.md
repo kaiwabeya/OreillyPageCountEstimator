@@ -1,6 +1,8 @@
 [![codecov](https://codecov.io/gh/kaiwabeya/OreillySectionWordConter/branch/main/graph/badge.svg?token=SV4H2L0NAV)](https://codecov.io/gh/kaiwabeya/OreillySectionWordConter)
 
-# OreillyMediaLineCounter
+# Oreilly e-Book Page count estimator
+
+The app estimates how many pages each O'Reilly ebook page is if it's a paper book.
 
 ## How to use
 
