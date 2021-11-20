@@ -88,4 +88,6 @@ setTimeout(() => {
     console.log("done");
 }, 5000);
 
+// Copy above code and paste user script form of Tampermonkey or Greasemonkey
+// !! Following line is unnecessary for user script, but is necessary for unit test !!
 module.exports.calc = calc;
