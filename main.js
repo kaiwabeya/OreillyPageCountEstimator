@@ -7,6 +7,7 @@
 // @match        https://learning.oreilly.com/library/view/*
 // @icon         https://www.google.com/s2/favicons?domain=oreilly.com
 // @grant        none
+// @run-at       document-idle
 // ==/UserScript==
 'use strict';
 
@@ -48,7 +49,7 @@ const calcLevel = function (section, levelMemo) {
     return parentLevel+1;
 };
 
-const main = function () {
+setTimeout(() => {
     const CHARS_IN_A_PAGE = 1800;
     const content = document.querySelector("#sbo-rt-content"); // Get contents body
     const sections = content.getElementsByTagName("section"); // Get all sections
@@ -79,7 +80,5 @@ const main = function () {
     console.log("Title, pages, char_count");
     console.log(results.map(x => "    ".repeat(x.level) + x.title + ", " + x.pages + ", " + x.chars.toString()).join("\n"));
     console.log("done");
-};
-
-main();
-
+    }, 10000
+);
