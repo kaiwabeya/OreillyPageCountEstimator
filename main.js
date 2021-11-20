@@ -80,5 +80,5 @@ setTimeout(() => {
     console.log("Title, pages, char_count");
     console.log(results.map(x => "    ".repeat(x.level) + x.title + ", " + x.pages + ", " + x.chars.toString()).join("\n"));
     console.log("done");
-    }, 10000
+    }, 5000
 );
