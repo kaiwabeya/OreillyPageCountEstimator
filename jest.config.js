@@ -5,6 +5,7 @@ module.exports = {
     "moduleDirectories": ["node_modules"],
     "moduleFileExtensions": ["js", "jsx", "node"],
     "testMatch": ["**/__tests__/*.test.+(js|jsx)"],
+    "coverageDirectory": "./coverage/",
     "collectCoverage": true
 };
 
