@@ -83,7 +83,7 @@ const calc = function(content){
 
 setTimeout(() => {
     const content = document.querySelector("#sbo-rt-content"); // Get contents body
-    result = calc(content);
+    const results = calc(content);
     console.log(results.map(x => "    ".repeat(x.level) + x.title + ", " + x.pages + ", " + x.chars.toString()).join("\n"));
     console.log("done");
 }, 5000);
