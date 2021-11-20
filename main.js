@@ -7,6 +7,7 @@
 // @match        https://learning.oreilly.com/library/view/*
 // @icon         https://www.google.com/s2/favicons?domain=oreilly.com
 // @grant        none
+// @run-at       document-idle
 // ==/UserScript==
 'use strict';
 
@@ -48,9 +49,8 @@ const calcLevel = function (section, levelMemo) {
     return parentLevel+1;
 };
 
-const main = function () {
+const calc = function(content){
     const CHARS_IN_A_PAGE = 1800;
-    const content = document.querySelector("#sbo-rt-content"); // Get contents body
     const sections = content.getElementsByTagName("section"); // Get all sections
     const results = [];
     const levelMemo = {}; // results of calculated level for memoization
@@ -77,9 +77,15 @@ const main = function () {
     // END---------------------------------------------
     console.log("Greasemonkey Script: Oreilly_Section_word_conter");
     console.log("Title, pages, char_count");
+    //console.log(results.map(x => "    ".repeat(x.level) + x.title + ", " + x.pages + ", " + x.chars.toString()).join("\n"));
+    return results;
+}
+
+setTimeout(() => {
+    const content = document.querySelector("#sbo-rt-content"); // Get contents body
+    result = calc(content);
     console.log(results.map(x => "    ".repeat(x.level) + x.title + ", " + x.pages + ", " + x.chars.toString()).join("\n"));
     console.log("done");
-};
+}, 5000);
 
-main();
-
+module.exports.calc = calc;

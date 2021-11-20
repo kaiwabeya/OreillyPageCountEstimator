@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/kaiwabeya/OreillySectionWordConter/branch/main/graph/badge.svg?token=SV4H2L0NAV)](https://codecov.io/gh/kaiwabeya/OreillySectionWordConter)
+
 # OreillyMediaLineCounter
 
 ## How to use
