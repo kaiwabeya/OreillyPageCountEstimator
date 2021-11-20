@@ -7,7 +7,7 @@ The app estimates how many pages each O'Reilly ebook page is if it's a paper boo
 ## How to use
 
 1. Install Tampermonkey or Greasemonkey extension on your browser
-2. Register `main.js` to Tampermonkey or Greasemonkey as a new user script
+2. Register `main.js` to Tampermonkey or Greasemonkey as a new user script (except for `module.exports line` that is a final line)
 3. Open developer mode of your browser (short cut key may be F12 if you use Firefox and Chrome) and click "Console" tab
 4. Open e-Book page on O'Reilly Online
 5. See "Console" tab
