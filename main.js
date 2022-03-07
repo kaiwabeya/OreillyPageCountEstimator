@@ -21,7 +21,7 @@ const countChar = function (section) {
 };
 
 const getTitle = function (section) {
-    const targets = ["h2", "h3", "h4"]; // h2: chapter 1, h3: 1.1 xxxx, h4: 1.1.1 yyyy, h5~: each small topic
+    const targets = ["h1", "h2", "h3"]; // h2: chapter 1, h3: 1.1 xxxx, h4: 1.1.1 yyyy, h5~: each small topic
     //const targets = ["h2", "h3"]; // h2: chapter 1, h3: 1.1 xxxx, h4: 1.1.1 yyyy, h5~: each small topic
     for (const target of targets) {
         const title = section.getElementsByTagName(target);
