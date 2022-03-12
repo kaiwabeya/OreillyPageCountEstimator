@@ -15,8 +15,6 @@ The app estimates how many pages each O'Reilly ebook page is if it's a paper boo
 You may see like this (Fundamentals of Software Architecture);
 
 ```
-Title, pages, char_count Oreilly_Section_word_conter.user.js:82:13
-Title, pages, char_count ch01.html:13:1037
 Chapter 1. Introduction, 2.8, 5054
     Defining Software Architecture, 2.2, 3906
     Expectations of an Architect, 0.5, 843
