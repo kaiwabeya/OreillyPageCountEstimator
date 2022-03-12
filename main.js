@@ -11,6 +11,8 @@
 // ==/UserScript==
 'use strict';
 
+const CHARS_IN_A_PAGE = 1800;
+
 const countChar = function (section) {
     const pTags = section.getElementsByTagName("p");
     let count = 0;
@@ -21,7 +23,7 @@ const countChar = function (section) {
 };
 
 const getTitle = function (section) {
-    const targets = ["h1", "h2", "h3"]; // h2: chapter 1, h3: 1.1 xxxx, h4: 1.1.1 yyyy, h5~: each small topic
+    const targets = ["h1", "h2", "h3", "h4"]; // h2: chapter 1, h3: 1.1 xxxx, h4: 1.1.1 yyyy, h5~: each small topic
     //const targets = ["h2", "h3"]; // h2: chapter 1, h3: 1.1 xxxx, h4: 1.1.1 yyyy, h5~: each small topic
     for (const target of targets) {
         const title = section.getElementsByTagName(target);
@@ -32,53 +34,58 @@ const getTitle = function (section) {
     return undefined; // ignored due to too small section
 };
 
-/* calcurate Level(capter 1: Lv.0, 1.1: Lv.1, 1.1.1: Lv.2) for indents */
-const calcLevel = function (section, levelMemo) {
-    if (section.textContent in levelMemo) { // for Lv.0
-        return levelMemo[section.textContent];
-    }
-    const parent = section.parentNode;
-    let parentLevel = -100;
-    if (parent.textContent in levelMemo) {
-        parentLevel = levelMemo[parent.textContent];
-    }
-    else {
-        parentLevel = calcLevel(parent, levelMemo);
-    }
-    levelMemo[section.textContent] = parentLevel+1;
-    return parentLevel+1;
-};
-
-const calc = function(content){
-    const CHARS_IN_A_PAGE = 1800;
-    const sections = content.getElementsByTagName("section"); // Get all sections
-    const results = [];
-    const levelMemo = {}; // results of calculated level for memoization
-    levelMemo[sections[0].textContent] = 0;
-    for (const section of sections) {
-        const title = getTitle(section);
-        if (title === undefined) { // Skip small section
-            continue;
+const createSectionInfoTree = function (section, level) {
+    let sectionInfoTree = [];
+    let subsections = [];
+    for (const child of section.children) {
+        if (child.tagName.toLowerCase() === "section") {
+            subsections.push(child);
         }
-        const count = countChar(section);
-        const pages = (count / CHARS_IN_A_PAGE).toFixed(1);
-        const level = calcLevel(section, levelMemo);
-        results.push({ "title": title, "pages": pages, "chars": count, "level": level});
     }
-    // Special Code for system performance 2nd edition
-    // BEGIN-------------------------------------------
+
+    if (subsections.length !== 0) {
+        for (const subsection of subsections) {
+            const subsectionInfoTree = createSectionInfoTree(subsection, level + 1);
+            if (subsectionInfoTree !== undefined) {
+                sectionInfoTree = sectionInfoTree.concat(subsectionInfoTree);
+            }
+        }
+    } else {
+        if (section.getElementsByTagName("section").length !== 0) {
+            // 一段子の階層にsectionはないが、それより下の階層にはsectionがある場合は、一段下の階層の要素を探索
+            for (const child of section.children) {
+                sectionInfoTree = sectionInfoTree.concat(createSectionInfoTree(child, level));
+            }
+            return sectionInfoTree;
+        }
+    }
+
+
+    const title = getTitle(section);
+    if (title === undefined) { // Skip small section
+        return undefined;
+    }
+    const count = countChar(section);
+
     let charsInAllChilds = 0;
-    for (const child of results.slice(1)) {
+    for (const child of sectionInfoTree) {
         charsInAllChilds += child.chars;
     }
-    const parentCount = results[0].chars - charsInAllChilds;
-    const parentPages = (parentCount / 1800).toFixed(1);
-    results[0] = { "title": results[0].title, "pages": parentPages, "chars": parentCount};
-    // END---------------------------------------------
+    const parentCount = count - charsInAllChilds;
+    const parentPages = (parentCount / CHARS_IN_A_PAGE).toFixed(1);
+    sectionInfoTree.unshift({"title": title, "pages": parentPages, "chars": parentCount, "level": level});
+
+    return sectionInfoTree;
+}
+
+const calc = function(content){
+    const sections = content.getElementsByTagName("section"); // Get all sections
+    const level = 0;
+    const sectionInfoTree = createSectionInfoTree(sections[0], level);
     console.log("Greasemonkey Script: Oreilly_Section_word_conter");
     console.log("Title, pages, char_count");
     //console.log(results.map(x => "    ".repeat(x.level) + x.title + ", " + x.pages + ", " + x.chars.toString()).join("\n"));
-    return results;
+    return sectionInfoTree;
 }
 
 setTimeout(() => {
