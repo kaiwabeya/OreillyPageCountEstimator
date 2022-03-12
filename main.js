@@ -50,7 +50,16 @@ const createSectionInfoTree = function (section, level) {
                 sectionInfoTree = sectionInfoTree.concat(subsectionInfoTree);
             }
         }
+    } else {
+        if (section.getElementsByTagName("section").length !== 0) {
+            // 一段子の階層にsectionはないが、それより下の階層にはsectionがある場合は、一段下の階層の要素を探索
+            for (const child of section.children) {
+                sectionInfoTree = sectionInfoTree.concat(createSectionInfoTree(child, level));
+            }
+            return sectionInfoTree;
+        }
     }
+
 
     const title = getTitle(section);
     if (title === undefined) { // Skip small section
