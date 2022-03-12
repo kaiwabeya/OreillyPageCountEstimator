@@ -12,7 +12,7 @@ The app estimates how many pages each O'Reilly ebook page is if it's a paper boo
 4. Open e-Book page on O'Reilly Online
 5. See "Console" tab
 
-You may see like this (Fundamentals of Software Architecture);
+You may see like this ("*Fundamentals of Software Architecture*", M. Richards, et al.);
 
 ```
 Chapter 1. Introduction, 2.8, 5054
