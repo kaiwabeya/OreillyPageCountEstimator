@@ -1,3 +1,4 @@
+[![npm test CI](https://github.com/kaiwabeya/OreillyPageCountEstimator/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kaiwabeya/OreillyPageCountEstimator/actions/workflows/npm-test.yml)
 [![codecov](https://codecov.io/gh/kaiwabeya/OreillySectionWordConter/branch/main/graph/badge.svg?token=SV4H2L0NAV)](https://codecov.io/gh/kaiwabeya/OreillySectionWordConter)
 
 # Oreilly e-Book Page count estimator
