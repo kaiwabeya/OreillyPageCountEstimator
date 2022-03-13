@@ -1,5 +1,5 @@
 [![npm test CI](https://github.com/kaiwabeya/OreillyPageCountEstimator/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kaiwabeya/OreillyPageCountEstimator/actions/workflows/npm-test.yml)
-[![codecov](https://codecov.io/gh/kaiwabeya/OreillySectionWordConter/branch/main/graph/badge.svg?token=SV4H2L0NAV)](https://codecov.io/gh/kaiwabeya/OreillySectionWordConter)
+[![codecov](https://codecov.io/gh/kaiwabeya/OreillyPageCountEstimator/branch/main/graph/badge.svg?token=SV4H2L0NAV)](https://codecov.io/gh/kaiwabeya/OreillyPageCountEstimator)
 
 # Oreilly e-Book Page count estimator
 
@@ -10,8 +10,10 @@ The app estimates how many pages each O'Reilly ebook page is if it's a paper boo
 1. Install Tampermonkey or Greasemonkey extension on your browser
 2. Register `main.js` to Tampermonkey or Greasemonkey as a new user script (except for `module.exports line` that is a final line)
 3. Open developer mode of your browser (short cut key may be F12 if you use Firefox and Chrome) and click "Console" tab
-4. Open e-Book page on O'Reilly Online
+4. Open e-Book page on O'Reilly Online and then reload the page
 5. See "Console" tab
+
+Be sure to reload at step 4.
 
 You may see like this ("*Fundamentals of Software Architecture*", M. Richards, et al.);
 
