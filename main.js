@@ -28,7 +28,8 @@ const getTitle = function (section) {
     for (const target of targets) {
         const title = section.getElementsByTagName(target);
         if (title.length > 0) {
-            return title[0].textContent;
+            const formattedTitle = title[0].textContent.replace(/\r?\n\s*/g, ' ').replace(/^\s+/g, '').replace(/\s+$/g, '');
+            return formattedTitle;
         }
     }
     return undefined; // ignored due to too small section
@@ -52,7 +53,6 @@ const createSectionInfoTree = function (section, level) {
         }
     } else {
         if (section.getElementsByTagName("section").length !== 0) {
-            // 一段子の階層にsectionはないが、それより下の階層にはsectionがある場合は、一段下の階層の要素を探索
             for (const child of section.children) {
                 sectionInfoTree = sectionInfoTree.concat(createSectionInfoTree(child, level));
             }
@@ -84,16 +84,15 @@ const calc = function(content){
     const sectionInfoTree = createSectionInfoTree(sections[0], level);
     console.log("Greasemonkey Script: Oreilly_Section_word_conter");
     console.log("Title, pages, char_count");
-    //console.log(results.map(x => "    ".repeat(x.level) + x.title + ", " + x.pages + ", " + x.chars.toString()).join("\n"));
     return sectionInfoTree;
 }
 
 setTimeout(() => {
     const content = document.querySelector("#sbo-rt-content"); // Get contents body
     const results = calc(content);
-    console.log(results.map(x => "    ".repeat(x.level) + x.title + ", " + x.pages + ", " + x.chars.toString()).join("\n"));
+    console.log(results.map(x => "    ".repeat(x.level) + "\"" + x.title + "\", " + x.pages + ", " + x.chars.toString()).join("\n"));
     console.log("done");
-}, 5000);
+}, 3000);
 
 // Copy above code and paste user script form of Tampermonkey or Greasemonkey
 // !! Following line is unnecessary for user script, but is necessary for unit test !!
